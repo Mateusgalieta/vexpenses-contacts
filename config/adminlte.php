@@ -268,22 +268,6 @@ return [
         ],
         ['header' => 'account_settings'],
         [
-            'text'        => 'Departamento',
-            'icon'        => 'fas fa-building',
-            'submenu'     => [
-                [
-                    'text' => 'Listar Departamentos',
-                    'route' => 'department.index',
-                    'icon'  => 'fas fa-list',
-                ],
-                [
-                    'text' => 'Adicionar Departamento',
-                    'route' => 'department.register',
-                    'icon'  => 'fas fa-plus-square',
-                ],
-            ]
-        ],
-        [
             'text' => 'Usuários',
             'icon' => 'fas fa-users',
             'submenu' => [

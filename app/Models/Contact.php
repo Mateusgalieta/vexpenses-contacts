@@ -3,23 +3,22 @@
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Department extends Model
+class Contact extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes;
 
-    /**
+
+     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'created_by', 'avatar_url'
     ];
 
     /**
@@ -45,12 +44,12 @@ class Department extends Model
      * @var array
      */
     protected $dates = [
-        'deleted_at'
+        'deleted_at', 'created_at'
     ];
 
      /*  Table Relationships  */
      public function users()
      {
-         return $this->hasMany(User::class);
+         return $this->belongsTo(User::class);
      }
 }
