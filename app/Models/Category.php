@@ -3,15 +3,13 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Category;
+use App\Models\Contact;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Contact extends Model
+class Category extends Model
 {
-    use Notifiable, SoftDeletes;
-
+    use HasFactory;
 
      /**
      * The attributes that are mass assignable.
@@ -19,7 +17,7 @@ class Contact extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'created_by', 'avatar_url', 'category_id'
+        'name', 'user_id'
     ];
 
     /**
@@ -45,17 +43,16 @@ class Contact extends Model
      * @var array
      */
     protected $dates = [
-        'deleted_at', 'created_at'
     ];
 
-     /*  Table Relationships  */
-     public function user()
-     {
-         return $this->belongsTo(User::class, 'created_by');
-     }
+    /*  Table Relationships  */
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
 
-     public function category()
-     {
-         return $this->belongsTo(Category::class);
-     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
