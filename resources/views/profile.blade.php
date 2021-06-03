@@ -32,13 +32,11 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                     <img class="profile-user-img img-fluid img-circle"
-                        src="#"
+                        src="/img/vexpenses-logo.png"
                         alt="Logo Sistema">
                     </div>
 
                     <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
-
-                    <p class="text-muted text-center">{{ auth()->user()->department->name ?? '' }}</p>
 
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
@@ -189,12 +187,6 @@
                                 <label for="inputSkills" class="col-sm-2 col-form-label">Data de Nascimento</label>
                                 <div class="col-sm-10">
                                     {!! Form::date('birthday_date', auth()->user()->birthday_date ? auth()->user()->birthday_date : '', ['class' => 'form-control', 'required' => true]) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputSkills" class="col-sm-2 col-form-label">Departamento</label>
-                                <div class="col-sm-10">
-                                    {!! Form::select('department_id', $department_list ?? [], auth()->user()->department_id, ['placeholder' => 'Departamento', 'class' => 'form-control', 'required' => true]) !!}
                                 </div>
                             </div>
                             <div class="form-group row">

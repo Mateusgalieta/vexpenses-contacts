@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'Título do Sistema',
-    'title_prefix' => 'Sistema - Descrição -',
+    'title' => 'Agenda Vexpenses',
+    'title_prefix' => 'Vexpenses - Agenda -',
     'title_postfix' => '',
 
     /*
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => 'Logo do sistema',
-    'logo_img' => '',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '',
+    'logo_img' => '/img/vexpenses-logo.png',
+    'logo_img_class' => 'img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Alt Logo',
+    'logo_img_alt' => '/img/vexpenses-logo.png',
 
     /*
     |--------------------------------------------------------------------------

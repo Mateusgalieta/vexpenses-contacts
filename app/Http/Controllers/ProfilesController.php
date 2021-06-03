@@ -25,9 +25,7 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        $department_list = Department::all();
         return view('profile', [
-            'department_list' => $department_list->pluck('name', 'id')->toArray() ?? [],
         ]);
     }
 

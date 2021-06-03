@@ -11725,7 +11725,6 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 }
 
 .brand-link .brand-image {
-  float: left;
   line-height: .8;
   margin-left: .8rem;
   margin-right: .5rem;
@@ -11735,7 +11734,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 }
 
 .brand-link .brand-image-xs {
-  float: left;
+  /* float: left; */
   line-height: .8;
   margin-top: -.1rem;
   max-height: 33px;
@@ -27189,6 +27188,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 
 .img-circle {
   border-radius: 50%;
+  width: 100% !important;
 }
 
 .img-size-64,
