@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="card-body">
-                {!!  Form::open(['route' => 'category.create', 'method' => 'POST', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+                {!!  Form::open(['route' => 'category.create', 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'registerForm', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         <label for="inputName">Nome da Categoria</label>
                         {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
@@ -43,8 +43,10 @@
           <!-- /.card -->
         </div>
       </div>
-      <input type="submit" value="Adicionar" class="btn btn-success float-right">
+      <input type="button" id="saveBtn" value="Adicionar" class="btn btn-success float-right">
       {!! Form::close() !!}
+
+      <div id="resultRequest"></div>
 
     </section>
     <!-- /.content -->
@@ -60,34 +62,27 @@
 
     <script type="text/javascript">
 
-        $(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        $(document).ready(function (){
+            $("#saveBtn").click(function(){
+                var form = $("registerForm").value();
 
-            $('#saveBtn').click(function (e) {
-                e.preventDefault();
-                $(this).html('Save');
+                alert(form);
 
                 $.ajax({
-                    data: $('#bookForm').serialize(),
-                    url: "{{ route('books.store') }}",
-                    type: "POST",
+                    url: "{{ route('category.create') }}",
+                    type: 'post',
                     dataType: 'json',
-                    success: function (data) {
-                        $('#bookForm').trigger("reset");
-                        $('#ajaxModel').modal('hide');
-                        table.draw();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                        $('#saveBtn').html('Save Changes');
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: form,
+                    timeout: 8000,
+                    success: function(result){
+                        $("#resultRequest").html(result);
                     }
+
                 });
             });
-
         });
 
 
