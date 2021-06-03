@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Adicionar Departamento</h1>
+            <h1>Editar Categoria</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-              <li class="breadcrumb-item active">Adicionar Departamento</li>
+              <li class="breadcrumb-item active">Editar Categoria | {{ $category->name }}</li>
             </ol>
           </div>
         </div>
@@ -32,10 +32,10 @@
               </div>
             </div>
             <div class="card-body">
-                {!!  Form::open(['route' => 'department.create', 'method' => 'POST', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+                {!!  Form::open(['route' => ['category.update', $category->id], 'method' => 'PUT', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
-                        <label for="inputName">Nome do Departamento</label>
-                        {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
+                        <label for="inputName">Nome da Categoria</label>
+                        {!! Form::text('name', $category ? $category->name : '', ['class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
                     </div>
             </div>
             <!-- /.card-body -->
@@ -43,7 +43,7 @@
           <!-- /.card -->
         </div>
       </div>
-      <input type="submit" value="Adicionar" class="btn btn-success float-right">
+      <input type="submit" value="Editar" class="btn btn-success float-right">
       {!! Form::close() !!}
 
     </section>

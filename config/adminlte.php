@@ -251,17 +251,17 @@ return [
             ]
         ],
         [
-            'text'        => 'Faturas',
-            'icon'        => 'fas fa-file-invoice-dollar',
+            'text'        => 'Categoria',
+            'icon'        => 'fas fa-building',
             'submenu'     => [
                 [
-                    'text' => 'Listar Faturas',
-                    'url' => '#',
+                    'text' => 'Listar Categorias',
+                    'route' => 'category.index',
                     'icon'  => 'fas fa-list',
                 ],
                 [
-                    'text' => 'Adicionar Fatura',
-                    'url' => '#',
+                    'text' => 'Adicionar Categoria',
+                    'route' => 'category.register',
                     'icon'  => 'fas fa-plus-square',
                 ],
             ]

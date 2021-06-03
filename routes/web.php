@@ -42,3 +42,11 @@ Route::post('/departments/create', [App\Http\Controllers\DepartmentsController::
 Route::get('/departments/{id}/edit', [App\Http\Controllers\DepartmentsController::class, 'edit'])->name('department.edit');
 Route::put('/departments/{id}/update', [App\Http\Controllers\DepartmentsController::class, 'update'])->name('department.update');
 Route::get('/departments/{id}/delete', [App\Http\Controllers\DepartmentsController::class, 'destroy'])->name('department.destroy');
+
+//Categories Routes
+Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index'])->name('category.index');
+Route::get('/categories/register', [App\Http\Controllers\CategoriesController::class, 'register'])->name('category.register');
+Route::post('/categories/create', [App\Http\Controllers\CategoriesController::class, 'create'])->name('category.create');
+Route::get('/categories/{id}/edit', [App\Http\Controllers\CategoriesController::class, 'edit'])->name('category.edit');
+Route::put('/categories/{id}/update', [App\Http\Controllers\CategoriesController::class, 'update'])->name('category.update');
+Route::delete('/categories/{id}/delete', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('category.destroy');

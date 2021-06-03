@@ -7,7 +7,7 @@
           <div class="card">
             {!! Form::open(['method' => 'GET']) !!}
             <div class="card-header">
-              <h3 class="card-title">Lista de Departamentos</h3>
+              <h3 class="card-title">Lista de Categorias</h3>
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -32,17 +32,17 @@
                     <th>Nome</th>
                   </tr>
                 </thead>
-                @foreach ($department_list ?? [] as $department)
+                @foreach ($categories_list ?? [] as $category)
                     <tbody>
                         <tr>
-                            <td>{{ $department->name ?? '' }}</td>
+                            <td>{{ $category->name ?? '' }}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ route('department.edit', $department->id) }}">
+                                <a class="btn btn-info btn-sm" href="{{ route('category.edit', $category->id) }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Editar
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="{{ route('department.destroy', $department->id) }}">
+                                <a class="btn btn-danger btn-sm" href="{{ route('category.destroy', $category->id) }}">
                                     <i class="fas fa-trash">
                                     </i>
                                     Excluir
