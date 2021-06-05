@@ -49,4 +49,4 @@ Route::get('/categories/register', [App\Http\Controllers\CategoriesController::c
 Route::post('/categories/create', [App\Http\Controllers\CategoriesController::class, 'create'])->name('category.create');
 Route::get('/categories/{id}/edit', [App\Http\Controllers\CategoriesController::class, 'edit'])->name('category.edit');
 Route::put('/categories/{id}/update', [App\Http\Controllers\CategoriesController::class, 'update'])->name('category.update');
-Route::delete('/categories/{id}/delete', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('category.destroy');
+Route::get('/categories/{id}/delete', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('category.destroy');

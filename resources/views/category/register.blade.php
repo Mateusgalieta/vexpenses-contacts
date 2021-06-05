@@ -47,6 +47,7 @@
       {!! Form::close() !!}
 
         <div class="alert col-4" id="resultRequest" role="alert">
+
         </div>
 
     </section>

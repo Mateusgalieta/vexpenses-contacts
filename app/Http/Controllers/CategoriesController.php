@@ -28,9 +28,9 @@ class CategoriesController extends Controller
     {
         $data = $request->all();
         if(isset($data['search']))
-            $department_list = Category::where('name', 'like', '%'. $data['search']. '%')->paginate();
+            $categories_list = Category::where('name', 'like', '%'. $data['search']. '%')->paginate();
         else
-            $department_list = Category::paginate();
+            $categories_list = Category::paginate();
 
         return view('category.index', [
             'categories_list' => $categories_list ?? [],
