@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Category;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class ContactsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -19,7 +19,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the Category Index.
+     * Show the Contact Index.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -27,27 +27,27 @@ class CategoriesController extends Controller
     {
         $data = $request->all();
         if(isset($data['search']))
-            $categories_list = Category::where('name', 'like', '%'. $data['search']. '%')->paginate();
+            $contacts_list = Contact::where('name', 'like', '%'. $data['search']. '%')->paginate();
         else
-            $categories_list = Category::paginate();
+            $contacts_list = Contact::paginate();
 
-        return view('category.index', [
-            'categories_list' => $categories_list ?? [],
+        return view('contact.index', [
+            'contacts_list' => $contacts_list ?? [],
         ]);
     }
 
     /**
-     * Redirect to Register Category page
+     * Redirect to Register Contact page
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function register()
     {
-        return view('category.register');
+        return view('contact.register');
     }
 
     /**
-     * Create new Category on the System
+     * Create new Contact on the System
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -59,7 +59,7 @@ class CategoriesController extends Controller
         $auth_id = auth()->user()->id;
 
         if($data){
-            $category = Category::create(['name' => $data['name'], 'user_id' => $auth_id]);
+            $contact = Contact::create(['name' => $data['name'], 'user_id' => $auth_id]);
             $response = [
                 'status' => 'success',
                 'message' => "Criado com sucesso!",
@@ -76,43 +76,43 @@ class CategoriesController extends Controller
     }
 
      /**
-     * edit page Category on the System
+     * edit page Contact on the System
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function edit($category_id)
+    public function edit($contact_id)
     {
-        $category = Category::findOrFail($category_id);
+        $contact = Contact::findOrFail($contact_id);
 
-        return view('category.edit', [
-            'category' => $category ?? null,
+        return view('contact.edit', [
+            'contact' => $contact ?? null,
         ]);
     }
 
     /**
-     * Update Category on the System
+     * Update Contact on the System
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function update(Request $request, $category_id)
+    public function update(Request $request, $contact_id)
     {
         $data = $request->all();
 
-        $category = Category::findOrFail($category_id);
-        $category->update($data);
+        $contact = Contact::findOrFail($contact_id);
+        $contact->update($data);
 
         session()->flash('alert-success', 'Atualizado com sucesso!');
-        return redirect()->route('category.index');
+        return redirect()->route('contact.index');
     }
 
     /**
-     * Delete Category on the System
+     * Delete Contact on the System
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function destroy($category_id)
+    public function destroy($contact_id)
     {
-        $category = Category::findOrFail($category_id);
+        $category = Category::findOrFail($contact_id);
         $category->delete();
 
         session()->flash('alert-success', 'Deletado com sucesso!');

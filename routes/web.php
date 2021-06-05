@@ -50,3 +50,11 @@ Route::post('/categories/create', [App\Http\Controllers\CategoriesController::cl
 Route::get('/categories/{id}/edit', [App\Http\Controllers\CategoriesController::class, 'edit'])->name('category.edit');
 Route::put('/categories/{id}/update', [App\Http\Controllers\CategoriesController::class, 'update'])->name('category.update');
 Route::get('/categories/{id}/delete', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('category.destroy');
+
+//Contacts Routes
+Route::get('/contacts', [App\Http\Controllers\ContactsController::class, 'index'])->name('contact.index');
+Route::get('/contacts/register', [App\Http\Controllers\ContactsController::class, 'register'])->name('contact.register');
+Route::post('/contacts/create', [App\Http\Controllers\ContactsController::class, 'create'])->name('contact.create');
+Route::get('/contacts/{id}/edit', [App\Http\Controllers\ContactsController::class, 'edit'])->name('contact.edit');
+Route::put('/contacts/{id}/update', [App\Http\Controllers\ContactsController::class, 'update'])->name('contact.update');
+Route::get('/contacts/{id}/delete', [App\Http\Controllers\ContactsController::class, 'destroy'])->name('contact.destroy');
