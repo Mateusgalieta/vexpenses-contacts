@@ -54,15 +54,23 @@ class CategoriesController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'name' => 'required|string',
+        ]);
         $auth_id = auth()->user()->id;
 
         if($data){
             $category = Category::create(['name' => $data['name'], 'user_id' => $auth_id]);
-            $response = "Criado com Sucesso!";
+            $response = [
+                'status' => 'success',
+                'message' => "Criado com sucesso!",
+            ];
         }
         else {
-            $response = "Ocorreu um erro. Por favor, tente novamente!";
+            $response = [
+                'status' => 'error',
+                'message' => "Ocorreu um erro. Por favor, tente novamente!",
+            ];
         }
 
         return $response;

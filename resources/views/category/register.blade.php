@@ -46,7 +46,8 @@
       <input type="button" id="saveBtn" value="Adicionar" class="btn btn-success float-right">
       {!! Form::close() !!}
 
-      <div id="resultRequest"></div>
+        <div class="alert col-4" id="resultRequest" role="alert">
+        </div>
 
     </section>
     <!-- /.content -->
@@ -71,11 +72,19 @@
                 type: "POST",
                 url: "{!! route('category.create') !!}",
                 data: content,
-                    success: function(msg){
-                        $('#resultRequest').html(msg);
+                    success: function(response){
+                        if(response.status == 'success'){
+                            $('#resultRequest').html('Criado com sucesso!');
+                            $('#resultRequest').addClass("alert-success");
+                        } else {
+                            $('#resultRequest').html("Ocorreu um erro!");
+                            $('#resultRequest').addClass("alert-danger");
+                        }
+
                     },
                 error: function(error){
-                    $('#resultRequest').html(error.responseText);
+                    $('#resultRequest').html("Ocorreu um erro!");
+                    $('#resultRequest').addClass("alert-danger");
                 }
             });
 
