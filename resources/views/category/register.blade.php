@@ -35,7 +35,7 @@
                 {!!  Form::open(['route' => 'category.create', 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'registerForm', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         <label for="inputName">Nome da Categoria</label>
-                        {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
+                        {!! Form::text('name', '', ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nome', 'required' => true]); !!}
                     </div>
             </div>
             <!-- /.card-body -->
@@ -53,36 +53,32 @@
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
     <script type="text/javascript">
 
-        $(document).ready(function (){
-            $("#saveBtn").click(function(){
-                var form = $("registerForm").value();
+        $('#saveBtn').click(function(){
+            var content = $('#name').serialize();
 
-                alert(form);
-
-                $.ajax({
-                    url: "{{ route('category.create') }}",
-                    type: 'post',
-                    dataType: 'json',
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    data: form,
-                    timeout: 8000,
-                    success: function(result){
-                        $("#resultRequest").html(result);
-                    }
-
-                });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
+
+            $.ajax({
+                type: "POST",
+                url: "{!! route('category.create') !!}",
+                data: content,
+                    success: function(msg){
+                        $('#resultRequest').html(msg);
+                    },
+                error: function(error){
+                    $('#resultRequest').html(error.responseText);
+                }
+            });
+
         });
 
 

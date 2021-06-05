@@ -59,17 +59,13 @@ class CategoriesController extends Controller
 
         if($data){
             $category = Category::create(['name' => $data['name'], 'user_id' => $auth_id]);
-            $array_response  = [
-                'name' => $category->name ?? null,
-            ];
+            $response = "Criado com Sucesso!";
         }
         else {
-            $array_response  = [
-                'error' => true,
-            ];
+            $response = "Ocorreu um erro. Por favor, tente novamente!";
         }
 
-        json_encode($array_response);
+        return $response;
     }
 
      /**
