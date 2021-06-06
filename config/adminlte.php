@@ -266,6 +266,22 @@ return [
                 ],
             ]
         ],
+        [
+            'text'        => 'Contato',
+            'icon'        => 'fas fa-id-card-alt',
+            'submenu'     => [
+                [
+                    'text' => 'Listar Contatos',
+                    'route' => 'contact.index',
+                    'icon'  => 'fas fa-list',
+                ],
+                [
+                    'text' => 'Adicionar Contato',
+                    'route' => 'contact.register',
+                    'icon'  => 'fas fa-plus-square',
+                ],
+            ]
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'Usuários',

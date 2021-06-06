@@ -15,9 +15,15 @@ class CreatePhonesTable extends Migration
     {
         Schema::create('phones', function (Blueprint $table) {
             $table->id();
-            $table->integer('type')->unsigned()->default;
-            $table->phone();
+            $table->integer('type')->unsigned()->nullable();
+            $table->string('phone');
+            $table->unsignedBigInteger('contact_id');
+
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('contact_id')->references('id')->on('contacts');
+
         });
     }
 
