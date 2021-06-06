@@ -29,23 +29,31 @@
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
+                    <th witdh="100"></th>
                     <th>Nome</th>
+                    <th>Numero</th>
                   </tr>
                 </thead>
                 @foreach ($contacts_list ?? [] as $contact)
                     <tbody>
                         <tr>
+                            <td width="100">
+                                <img style="width: 50px; border-radius: 50%;" src="{{ 'storage/'. $contact->avatar_url }}" alt="avatar-{{ $contact->name }}">
+                            </td>
                             <td>{{ $contact->name ?? '' }}</td>
+                            <td>{{ $contact->phones ? $contact->phones->first()->phone : '' }}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ route('contact.edit', $category->id) }}">
+                                <a class="btn btn-info btn-sm col-1" href="{{ route('contact.edit', $contact->id) }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
-                                    Editar
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="{{ route('contact.destroy', $category->id) }}">
+                                <a class="btn btn-danger btn-sm col-1" href="{{ route('contact.destroy', $contact->id) }}">
                                     <i class="fas fa-trash">
                                     </i>
-                                    Excluir
+                                </a>
+                                <a class="btn btn-success btn-sm col-1" href="{{ route('phone.index', $contact->id) }}">
+                                    <i class="fas fa-phone">
+                                    </i>
                                 </a>
                             </td>
                         </tr>

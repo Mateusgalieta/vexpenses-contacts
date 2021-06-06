@@ -34,16 +34,41 @@
             <div class="card-body">
                 {!!  Form::open(['route' => 'contact.create', 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'registerForm', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
-                        <label for="inputName">Nome da Contato</label>
+                        <label for="inputName">Nome do Contato</label>
                         {!! Form::text('name', '', ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nome', 'required' => true]); !!}
                     </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Categoria</label>
+                            </div>
+                            <select name="category_id" class="custom-select" id="inputGroupSelect01">
+                                <option selected>Categoria</option>
+                                @foreach ($categories_list as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Foto</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="avatar_url" class="custom-file-input" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01">Escolher arquivo</label>
+                        </div>
+                    </div>
+
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
       </div>
-      <input type="button" id="saveBtn" value="Adicionar" class="btn btn-success float-right">
+      <input type="submit" id="saveBtn" value="Adicionar" class="btn btn-success float-right">
       {!! Form::close() !!}
 
         <div class="alert col-4" id="resultRequest" role="alert">
@@ -55,13 +80,13 @@
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
     <script type="text/javascript">
 
         $('#saveBtn').click(function(){
-            var content = $('#name').serialize();
+            var content = $('#registerForm').serialize();
 
             $.ajaxSetup({
                 headers: {
@@ -71,7 +96,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "{!! route('category.create') !!}",
+                url: "{!! route('contact.create') !!}",
                 data: content,
                     success: function(response){
                         if(response.status == 'success'){
@@ -84,7 +109,7 @@
 
                     },
                 error: function(error){
-                    $('#resultRequest').html("Ocorreu um erro!");
+                    $('#resultRequest').html(error.responseText);
                     $('#resultRequest').addClass("alert-danger");
                 }
             });
@@ -94,7 +119,7 @@
 
 
 
-    </script>
+    </script> --}}
 
 
 @endsection

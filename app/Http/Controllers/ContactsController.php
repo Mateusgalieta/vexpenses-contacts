@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Contact;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
@@ -43,7 +44,10 @@ class ContactsController extends Controller
      */
     public function register()
     {
-        return view('contact.register');
+        $categories_list = Category::where('user_id', auth()->user()->id)->get();
+        return view('contact.register', [
+            'categories_list' => $categories_list ?? [],
+        ]);
     }
 
     /**
@@ -55,11 +59,27 @@ class ContactsController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
+            'category_id' => 'required',
         ]);
         $auth_id = auth()->user()->id;
 
+        $data = $request->all();
+
+        if($request->hasFile('avatar_url')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('avatar_url')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('avatar_url')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('avatar_url')->storeAs('img', $fileNameToStore);
+        }
+
         if($data){
-            $contact = Contact::create(['name' => $data['name'], 'user_id' => $auth_id]);
+            $contact = Contact::create(['avatar_url' => $path ?? null, 'name' => $data['name'], 'created_by' => $auth_id, 'category_id' => $data['category_id']]);
             $response = [
                 'status' => 'success',
                 'message' => "Criado com sucesso!",
@@ -72,7 +92,8 @@ class ContactsController extends Controller
             ];
         }
 
-        return $response;
+        session()->flash('alert-success', 'Atualizado com sucesso!');
+        return redirect()->route('contact.index');
     }
 
      /**
@@ -98,6 +119,21 @@ class ContactsController extends Controller
     {
         $data = $request->all();
 
+        if($request->hasFile('avatar_url')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('avatar_url')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('avatar_url')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('avatar_url')->storeAs('public/img', $fileNameToStore);
+
+            $data['avatar_url'] = $path;
+        }
+
         $contact = Contact::findOrFail($contact_id);
         $contact->update($data);
 
@@ -112,8 +148,8 @@ class ContactsController extends Controller
      */
     public function destroy($contact_id)
     {
-        $category = Category::findOrFail($contact_id);
-        $category->delete();
+        $contact = Contact::findOrFail($contact_id);
+        $contact->delete();
 
         session()->flash('alert-success', 'Deletado com sucesso!');
         return redirect()->back();
