@@ -51,7 +51,7 @@ class Phone extends Model
      /*  Table Relationships  */
      public function contact()
      {
-         return $this->belongsTo(Contact::class, 'created_by');
+         return $this->belongsTo(Contact::class);
      }
 
 }

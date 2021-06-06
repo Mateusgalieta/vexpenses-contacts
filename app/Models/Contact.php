@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Phone;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -57,5 +58,10 @@ class Contact extends Model
      public function category()
      {
          return $this->belongsTo(Category::class);
+     }
+
+     public function phones()
+     {
+         return $this->hasMany(Phone::class);
      }
 }

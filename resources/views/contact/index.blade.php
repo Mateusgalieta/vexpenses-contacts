@@ -41,7 +41,7 @@
                                 <img style="width: 50px; border-radius: 50%;" src="{{ 'storage/'. $contact->avatar_url }}" alt="avatar-{{ $contact->name }}">
                             </td>
                             <td>{{ $contact->name ?? '' }}</td>
-                            <td>{{ $contact->phones ? $contact->phones->first()->phone : '' }}</td>
+                            <td>{{ $contact->phones->first() ? $contact->phones->first()->phone : '' }}</td>
                             <td class="project-actions text-right">
                                 <a class="btn btn-info btn-sm col-1" href="{{ route('contact.edit', $contact->id) }}">
                                     <i class="fas fa-pencil-alt">

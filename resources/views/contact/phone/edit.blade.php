@@ -32,13 +32,23 @@
               </div>
             </div>
             <div class="card-body">
-                {!!  Form::open(['route' => ['phone.update', $contact_id, $category->id], 'method' => 'PUT', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+                {!!  Form::open(['route' => ['phone.update', $contact->id, $phone->id], 'method' => 'PUT', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
-                        <label for="inputName">Tipo</label>
-                        {!! Form::select('type', ['1' => 'Telefone', '2' => 'Celular'], ['id' => 'type', 'required' => true, 'class' => 'form-control', 'placeholder' => 'Tipo' ]); !!}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="type">Tipo</label>
+                                </div>
+                                <select name="type" class="custom-select" id="type">
+                                    <option value="">Selecione</option>
+                                    <option value="1" {{ $phone->type == 1 ? 'selected' : '' }}>Telefone</option>
+                                    <option value="2" {{ $phone->type == 2 ? 'selected' : '' }}>Celular</option>
+                                </select>
+                            </div>
+                        </div>
 
-                        <label for="inputName">Telefone/Celular</label>
-                        {!! Form::text('name', $phone ? $phone->phone : '', ['id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
+                        <label for="inputName">Telefone/Celular (55+ddd+numero) E164</label>
+                        {!! Form::text('phone', $phone ? $phone->phone : '', ['id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
                     </div>
             </div>
             <!-- /.card-body -->
@@ -52,9 +62,9 @@
     </section>
     <!-- /.content -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(document).ready(function(){
             var type = $('#type').val();
 
@@ -65,6 +75,6 @@
                 $('#phone').mask('(00) 00000 0000');
             }
         });
-    </script>
+    </script> --}}
 
 @endsection

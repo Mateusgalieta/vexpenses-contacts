@@ -32,13 +32,23 @@
               </div>
             </div>
             <div class="card-body">
-                {!!  Form::open(['route' => ['phone.create', $contact_id], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'registerForm', 'enctype' => 'multipart/form-data']) !!}
+                {!!  Form::open(['route' => ['phone.create', $contact->id], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'registerForm', 'enctype' => 'multipart/form-data']) !!}
                 <div class="form-group">
-                    <label for="inputName">Tipo</label>
-                    {!! Form::select('type', ['1' => 'Telefone', '2' => 'Celular'], ['id' => 'type', 'required' => true, 'class' => 'form-control', 'placeholder' => 'Tipo' ]); !!}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="type">Tipo</label>
+                            </div>
+                            <select name="type" class="custom-select" id="type">
+                                <option value="">Selecione</option>
+                                <option value="1">Telefone</option>
+                                <option value="2">Celular</option>
+                            </select>
+                        </div>
+                    </div>
 
-                    <label for="inputName">Telefone/Celular</label>
-                    {!! Form::text('name', $category ? $category->name : '', ['id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
+                    <label for="inputName">Telefone/Celular (55+ddd+numero) E164</label>
+                    {!! Form::text('phone', '', ['id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Telefone/Celular', 'required' => true]); !!}
                 </div>
             </div>
             <!-- /.card-body -->
@@ -46,7 +56,7 @@
           <!-- /.card -->
         </div>
       </div>
-      <input type="button" id="saveBtn" value="Adicionar" class="btn btn-success float-right">
+      <input type="submit" id="saveBtn" value="Adicionar" class="btn btn-success float-right">
       {!! Form::close() !!}
 
         <div class="alert col-4" id="resultRequest" role="alert">
@@ -58,8 +68,9 @@
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
 
     <script type="text/javascript">
 
@@ -74,9 +85,10 @@
 
             $.ajax({
                 type: "POST",
-                url: "{!! route('phone.create', <?php echo $contact_id ?>) !!}",
+                url: "{!! route('phone.create',". {{ $contact->id }}") !!}",
                 data: content,
                     success: function(response){
+                        alert(response)
                         if(response.status == 'success'){
                             $('#resultRequest').html('Criado com sucesso!');
                             $('#resultRequest').addClass("alert-success");
@@ -87,19 +99,16 @@
 
                     },
                 error: function(error){
-                    $('#resultRequest').html("Ocorreu um erro!");
+                    $('#resultRequest').html(error.responseText);
                     $('#resultRequest').addClass("alert-danger");
                 }
             });
 
         });
 
+    </script> --}}
 
-
-
-    </script>
-
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(document).ready(function(){
             var type = $('#type').val();
 
@@ -110,7 +119,7 @@
                 $('#phone').mask('(00) 00000 0000');
             }
         });
-    </script>
+    </script> --}}
 
 
 @endsection

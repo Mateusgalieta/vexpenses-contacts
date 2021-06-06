@@ -80,19 +80,12 @@ class ContactsController extends Controller
 
         if($data){
             $contact = Contact::create(['avatar_url' => $path ?? null, 'name' => $data['name'], 'created_by' => $auth_id, 'category_id' => $data['category_id']]);
-            $response = [
-                'status' => 'success',
-                'message' => "Criado com sucesso!",
-            ];
-        }
-        else {
-            $response = [
-                'status' => 'error',
-                'message' => "Ocorreu um erro. Por favor, tente novamente!",
-            ];
+
+            session()->flash('alert-success', 'Atualizado com sucesso!');
+            return redirect()->route('contact.index');
         }
 
-        session()->flash('alert-success', 'Atualizado com sucesso!');
+        session()->flash('alert-danger', 'Ocorreu um erro');
         return redirect()->route('contact.index');
     }
 
@@ -117,6 +110,12 @@ class ContactsController extends Controller
      */
     public function update(Request $request, $contact_id)
     {
+        $data = $request->validate([
+            'name' => 'required|string',
+            'category_id' => 'required',
+        ]);
+        $auth_id = auth()->user()->id;
+
         $data = $request->all();
 
         if($request->hasFile('avatar_url')){
@@ -129,15 +128,18 @@ class ContactsController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
-            $path = $request->file('avatar_url')->storeAs('public/img', $fileNameToStore);
-
-            $data['avatar_url'] = $path;
+            $path = $request->file('avatar_url')->storeAs('img', $fileNameToStore);
         }
 
-        $contact = Contact::findOrFail($contact_id);
-        $contact->update($data);
+        if($data){
+            $contact = Contact::findOrFail($contact_id);
+            $contact = Contact::update(['avatar_url' => $path ?? null, 'name' => $data['name'], 'created_by' => $auth_id, 'category_id' => $data['category_id']]);
 
-        session()->flash('alert-success', 'Atualizado com sucesso!');
+            session()->flash('alert-success', 'Atualizado com sucesso!');
+            return redirect()->route('contact.index');
+        }
+
+        session()->flash('alert-danger', 'Ocorreu um erro');
         return redirect()->route('contact.index');
     }
 
@@ -149,6 +151,7 @@ class ContactsController extends Controller
     public function destroy($contact_id)
     {
         $contact = Contact::findOrFail($contact_id);
+        $contact->phones()->delete();
         $contact->delete();
 
         session()->flash('alert-success', 'Deletado com sucesso!');

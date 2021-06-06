@@ -7,7 +7,13 @@
           <div class="card">
             {!! Form::open(['method' => 'GET']) !!}
             <div class="card-header">
-              <h3 class="card-title">Lista de Telefone/Celulares</h3>
+              <h3 class="card-title">Lista de Telefone/Celulares do contato <a href="{{ route('contact.index') }}"><strong>{{ $contact->name }}</strong></a></h3>
+
+                <a style="margin-left: 20px; heigth: 10px;" class="btn btn-success btn-sm col-2" href="{{ route('phone.register', $contact->id) }}">
+                    <i class="fas fa-plus-square">
+                    </i>
+                    Adicionar
+                </a>
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -37,16 +43,16 @@
                 @foreach ($phones_list ?? [] as $phone)
                     <tbody>
                         <tr>
-                            <td>{{ $phone->contact->name }}</td>
+                            <td>{{ $phone->contact->name ?? '' }}</td>
                             <td>{{ $phone->type == 1 ? 'Telefone' : 'Celular' }}</td>
                             <td>{{ $phone->phone }}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{ route('category.edit', $category->id) }}">
+                                <a class="btn btn-info btn-sm" href="{{ route('phone.edit', [$contact->id, $phone->id]) }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Editar
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="{{ route('category.destroy', $category->id) }}">
+                                <a class="btn btn-danger btn-sm" href="{{ route('phone.destroy', [$contact->id, $phone->id]) }}">
                                     <i class="fas fa-trash">
                                     </i>
                                     Excluir
