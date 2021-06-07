@@ -26,10 +26,12 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
+        $auth_id = auth()->user()->id;
+
         if(isset($data['search']))
-            $categories_list = Category::where('name', 'like', '%'. $data['search']. '%')->paginate();
+            $categories_list = Category::where('user_id', $auth_id)->where('name', 'like', '%'. $data['search']. '%')->paginate();
         else
-            $categories_list = Category::paginate();
+            $categories_list = Category::where('user_id', $auth_id)->paginate();
 
         return view('category.index', [
             'categories_list' => $categories_list ?? [],

@@ -7,7 +7,13 @@
           <div class="card">
             {!! Form::open(['method' => 'GET']) !!}
             <div class="card-header">
-              <h3 class="card-title">Lista de Contatos</h3>
+              <h3 class="card-title">Lista de Endereço do contato <a href="{{ route('contact.index') }}"><strong>{{ $contact->name }}</strong></a></h3>
+
+                <a style="margin-left: 20px; heigth: 10px;" class="btn btn-success btn-sm col-2" href="{{ route('address.register', $contact->id) }}">
+                    <i class="fas fa-plus-square">
+                    </i>
+                    Adicionar
+                </a>
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -29,34 +35,31 @@
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
-                    <th witdh="100"></th>
-                    <th>Nome</th>
-                    <th>Numero</th>
+                    <th>CEP</th>
+                    <th>Endereço</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
                   </tr>
                 </thead>
-                @foreach ($contacts_list ?? [] as $contact)
+                @foreach ($addresses_list ?? [] as $address)
                     <tbody>
                         <tr>
-                            <td width="100">
-                                <img style="width: 50px; border-radius: 50%;" src="{{ 'storage/'. $contact->avatar_url }}" alt="avatar-{{ $contact->name }}">
-                            </td>
-                            <td>{{ $contact->name ?? '' }}</td>
-                            <td>{{ $contact->phones->first() ? $contact->phones->first()->phone : '' }}</td>
+                            <td>{{ $address->cep ?? '' }}</td>
+                            <td>{{ $address->address }}</td>
+                            <td>{{ $address->neighborhood }}</td>
+                            <td>{{ $address->city }}</td>
+                            <td>{{ $address->state }}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm col-1" href="{{ route('contact.edit', $contact->id) }}">
+                                <a class="btn btn-info btn-sm" href="{{ route('address.edit', [$contact->id, $address->id]) }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
+                                    Editar
                                 </a>
-                                <a class="btn btn-danger btn-sm col-1" href="{{ route('contact.destroy', $contact->id) }}">
+                                <a class="btn btn-danger btn-sm" href="{{ route('address.destroy', [$contact->id, $address->id]) }}">
                                     <i class="fas fa-trash">
                                     </i>
-                                </a>
-                                <a class="btn btn-success btn-sm col-1" href="{{ route('phone.index', $contact->id) }}">
-                                    <i class="fas fa-phone">
-                                    </i>
-                                </a> <a class="btn btn-success btn-sm col-1" href="{{ route('address.index', $contact->id) }}">
-                                    <i class="fas fa-phone">
-                                    </i>
+                                    Excluir
                                 </a>
                             </td>
                         </tr>

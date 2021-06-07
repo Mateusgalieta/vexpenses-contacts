@@ -66,3 +66,11 @@ Route::post('/contact/{contact_id}/phones/create', [App\Http\Controllers\PhonesC
 Route::get('/contact/{contact_id}/phones/{id}/edit', [App\Http\Controllers\PhonesController::class, 'edit'])->name('phone.edit');
 Route::put('/contact/{contact_id}/phones/{id}/update', [App\Http\Controllers\PhonesController::class, 'update'])->name('phone.update');
 Route::get('/contact/{contact_id}/phones/{id}/delete', [App\Http\Controllers\PhonesController::class, 'destroy'])->name('phone.destroy');
+
+//Address Routes
+Route::get('/contact/{contact_id}/addresses', [App\Http\Controllers\AddressesController::class, 'index'])->name('address.index');
+Route::get('/contact/{contact_id}/addresses/register', [App\Http\Controllers\AddressesController::class, 'register'])->name('address.register');
+Route::post('/contact/{contact_id}/addresses/create', [App\Http\Controllers\AddressesController::class, 'create'])->name('address.create');
+Route::get('/contact/{contact_id}/addresses/{id}/edit', [App\Http\Controllers\AddressesController::class, 'edit'])->name('address.edit');
+Route::put('/contact/{contact_id}/addresses/{id}/update', [App\Http\Controllers\AddressesController::class, 'update'])->name('address.update');
+Route::get('/contact/{contact_id}/addresses/{id}/delete', [App\Http\Controllers\AddressesController::class, 'destroy'])->name('address.destroy');

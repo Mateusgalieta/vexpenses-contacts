@@ -27,10 +27,12 @@ class ContactsController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
+        $auth_id = auth()->user()->id;
+
         if(isset($data['search']))
-            $contacts_list = Contact::where('name', 'like', '%'. $data['search']. '%')->paginate();
+            $contacts_list = Contact::where('created_by', $auth_id)->where('name', 'like', '%'. $data['search']. '%')->paginate();
         else
-            $contacts_list = Contact::paginate();
+            $contacts_list = Contact::where('created_by', $auth_id)->paginate();
 
         return view('contact.index', [
             'contacts_list' => $contacts_list ?? [],
