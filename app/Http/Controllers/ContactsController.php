@@ -220,6 +220,12 @@ class ContactsController extends Controller
                     ]);
                 }
             }
+
+            session()->flash('alert-success', 'Importado com sucesso!');
+            return redirect()->back();
+        } else {
+            session()->flash('alert-success', 'Ocorreu um erro na importação!');
+            return redirect()->back();
         }
     }
 
