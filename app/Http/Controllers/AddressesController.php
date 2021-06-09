@@ -121,7 +121,7 @@ class AddressesController extends Controller
             'state'  => 'required|string',
         ]);
 
-        //Deixei o validate sem mensagem propositalmente para mostra a validação do backend.
+        //Deixei o validate sem mensagem propositalmente para mostrar a validação do backend.
 
         $address = Address::findOrFail($address_id);
         $address->update($data);

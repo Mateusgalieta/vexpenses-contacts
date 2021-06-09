@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Adicionar Contato</h1>
+            <h1>Importar VEXPENSES</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-              <li class="breadcrumb-item active">Adicionar Contato</li>
+              <li class="breadcrumb-item active">Importar VEXPENSES</li>
             </ol>
           </div>
         </div>
@@ -32,12 +32,7 @@
               </div>
             </div>
             <div class="card-body">
-                {!!  Form::open(['route' => 'contact.create', 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'registerForm', 'enctype' => 'multipart/form-data']) !!}
-                    <div class="form-group">
-                        <label for="inputName">Nome do Contato</label>
-                        {!! Form::text('name', '', ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nome', 'required' => true]); !!}
-                    </div>
-
+                {!!  Form::open(['route' => 'contact.import.process', 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'registerForm', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -51,24 +46,17 @@
                             </select>
                         </div>
                     </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Foto</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" name="avatar_url" class="custom-file-input" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Escolher arquivo</label>
-                        </div>
+                    <div class="form-group">
+                        <label for="inputName">Token de autenticação</label>
+                        {!! Form::text('token', '', ['class' => 'form-control', 'id' => 'token', 'placeholder' => 'Token de Autenticação', 'required' => true]); !!}
                     </div>
-
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
       </div>
-      <input type="submit" id="saveBtn" value="Adicionar" class="btn btn-success float-right">
+      <input type="submit" id="saveBtn" value="Importar" class="btn btn-success float-right">
       {!! Form::close() !!}
 
         <div class="alert col-4" id="resultRequest" role="alert">

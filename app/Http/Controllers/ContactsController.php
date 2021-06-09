@@ -160,4 +160,67 @@ class ContactsController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Redirect to Import Contact Page
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function import()
+    {
+        $categories_list = Category::where('user_id', auth()->user()->id)->get();
+        return view('contact.import', [
+            'categories_list' => $categories_list ?? [],
+        ]);
+    }
+
+    /**
+     * Method to import Process
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function importProcess(Request $request)
+    {
+        $data = $request->all();
+        $auth_id = auth()->user()->id;
+
+        $request->validate([
+            'category_id' => 'required',
+            'token'       => 'required',
+        ]);
+
+        if($data){
+            $ch = curl_init();
+
+            $url_endpoint = 'https://dev.api.vexpenses.com/v2/team-members';
+
+            curl_setopt($ch, CURLOPT_URL, $url_endpoint);
+            curl_setopt($ch, CURLOPT_POST, false);
+            curl_setopt($ch, CURLOPT_HEADER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+              'Authorization' => $data['token']
+            ));
+
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            $response = json_decode($response, true);
+
+            if($data['code'] == 200){
+                foreach($response['data'] as $row_contact){
+                    $new_contact = Contact::create([
+                        'name' => $row_contact['name'],
+                        'created_by' => $auth_id,
+                        'category_id' => $data['category_id'],
+                    ]);
+
+                    $new_phone = Phone::create([
+                        'phone' => $row_contact['phone1'],
+                        'contact_id' => $new_contact->id,
+                        'type'  => '2',//Celular (De acordo com a documentação da API)
+                    ]);
+                }
+            }
+        }
+    }
+
 }

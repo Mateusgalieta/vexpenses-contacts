@@ -58,6 +58,8 @@ Route::post('/contacts/create', [App\Http\Controllers\ContactsController::class,
 Route::get('/contacts/{id}/edit', [App\Http\Controllers\ContactsController::class, 'edit'])->name('contact.edit');
 Route::put('/contacts/{id}/update', [App\Http\Controllers\ContactsController::class, 'update'])->name('contact.update');
 Route::get('/contacts/{id}/delete', [App\Http\Controllers\ContactsController::class, 'destroy'])->name('contact.destroy');
+Route::get('/contacts/import', [App\Http\Controllers\ContactsController::class, 'import'])->name('contact.import');
+Route::post('/contacts/import/process', [App\Http\Controllers\ContactsController::class, 'importProcess'])->name('contact.import.process');
 
 //Phones Routes
 Route::get('/contact/{contact_id}/phones', [App\Http\Controllers\PhonesController::class, 'index'])->name('phone.index');

@@ -9,6 +9,12 @@
             <div class="card-header">
               <h3 class="card-title">Lista de Contatos</h3>
 
+                <a style="margin-left: 20px; heigth: 10px;" class="btn btn-success btn-sm col-2" href="{{ route('contact.import') }}">
+                    <i class="fas fa-plus-square">
+                    </i>
+                    Importar Vexpenses
+                </a>
+
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
 
