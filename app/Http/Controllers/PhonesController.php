@@ -73,6 +73,9 @@ class PhonesController extends Controller
                 'phone' => $data['phone'],
                 'contact_id' => $contact_id
             ]);
+
+            activity()->log('Telefone/Celular ID'. $phone->id . ' foi criado.');
+
             session()->flash('alert-success', 'Criado com sucesso!');
             return redirect()->route('phone.index', $contact_id);
         }
@@ -116,6 +119,8 @@ class PhonesController extends Controller
         $phone = Phone::findOrFail($phone_id);
         $phone->update($data);
 
+        activity()->log('Telefone/Celular ID'. $phone->id . ' foi atualizado.');
+
         session()->flash('alert-success', 'Atualizado com sucesso!');
         return redirect()->route('phone.index', $contact_id);
     }
@@ -129,6 +134,8 @@ class PhonesController extends Controller
     {
         $phone = Phone::findOrFail($phone_id);
         $phone->delete();
+
+        activity()->log('Telefone/Celular ID'. $phone->id . ' foi deletado.');
 
         session()->flash('alert-success', 'Deletado com sucesso!');
         return redirect()->back();

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Contact;
+use App\Mail\ContactAdd;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactsController extends Controller
 {
@@ -83,6 +85,10 @@ class ContactsController extends Controller
         if($data){
             $contact = Contact::create(['avatar_url' => $path ?? null, 'name' => $data['name'], 'created_by' => $auth_id, 'category_id' => $data['category_id']]);
 
+            Mail::to(auth()->user()->email)->send(new ContactAdd($data));
+
+            activity()->log('Contato ID'. $contact->id . ' foi criado.');
+
             session()->flash('alert-success', 'Atualizado com sucesso!');
             return redirect()->route('contact.index');
         }
@@ -99,9 +105,11 @@ class ContactsController extends Controller
     public function edit($contact_id)
     {
         $contact = Contact::findOrFail($contact_id);
+        $categories_list = Category::where('user_id', auth()->user()->id)->get();
 
         return view('contact.edit', [
             'contact' => $contact ?? null,
+            'categories_list' => $categories_list ?? null,
         ]);
     }
 
@@ -135,7 +143,9 @@ class ContactsController extends Controller
 
         if($data){
             $contact = Contact::findOrFail($contact_id);
-            $contact = Contact::update(['avatar_url' => $path ?? null, 'name' => $data['name'], 'created_by' => $auth_id, 'category_id' => $data['category_id']]);
+            $contact->update(['avatar_url' => $path ?? $contact->avatar_url, 'name' => $data['name'], 'created_by' => $auth_id, 'category_id' => $data['category_id']]);
+
+            activity()->log('Contato ID'. $contact->id . ' foi atualizado.');
 
             session()->flash('alert-success', 'Atualizado com sucesso!');
             return redirect()->route('contact.index');
@@ -155,6 +165,8 @@ class ContactsController extends Controller
         $contact = Contact::findOrFail($contact_id);
         $contact->phones()->delete();
         $contact->delete();
+
+        activity()->log('Contato ID'. $contact->id . ' foi deletado.');
 
         session()->flash('alert-success', 'Deletado com sucesso!');
         return redirect()->back();
@@ -205,7 +217,7 @@ class ContactsController extends Controller
 
             $response = json_decode($response, true);
 
-            if($data['code'] == 200){
+            if(isset($response['code']) && $response['code'] == 200){
                 foreach($response['data'] as $row_contact){
                     $new_contact = Contact::create([
                         'name' => $row_contact['name'],
@@ -220,11 +232,15 @@ class ContactsController extends Controller
                     ]);
                 }
             }
+            else {
+                session()->flash('alert-danger', 'Ocorreu um erro na importação!');
+                return redirect()->back();
+            }
 
             session()->flash('alert-success', 'Importado com sucesso!');
             return redirect()->back();
         } else {
-            session()->flash('alert-success', 'Ocorreu um erro na importação!');
+            session()->flash('alert-danger', 'Ocorreu um erro na importação!');
             return redirect()->back();
         }
     }

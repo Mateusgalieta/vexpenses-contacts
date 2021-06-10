@@ -54,4 +54,11 @@ class Phone extends Model
          return $this->belongsTo(Contact::class);
      }
 
+
+      /*  Scopes  */
+     public function scopeCellphone($query)
+     {
+         return $query->where('type', 2);
+     }
+
 }

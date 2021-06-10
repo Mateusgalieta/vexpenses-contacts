@@ -235,22 +235,6 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Page',
-            'icon'        => 'fas fa-pager',
-            'submenu'     => [
-                [
-                    'text' => 'Page List',
-                    'url' => '#',
-                    'icon'  => 'fas fa-list',
-                ],
-                [
-                    'text' => 'Add Page',
-                    'url' => '#',
-                    'icon'  => 'fas fa-plus-square',
-                ],
-            ]
-        ],
-        [
             'text'        => 'Categoria',
             'icon'        => 'fas fa-building',
             'submenu'     => [

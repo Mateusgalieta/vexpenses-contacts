@@ -18,7 +18,7 @@
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
 
-                  <input type="text" name="search" class="form-control float-right" placeholder="Pesquisar">
+                  <input type="text" name="search" value="{{ request()->search ? request()->search : '' }}" class="form-control float-right" placeholder="Pesquisar">
 
                   <div class="input-group-append">
                     <button type="submit" id="search" class="btn btn-default">

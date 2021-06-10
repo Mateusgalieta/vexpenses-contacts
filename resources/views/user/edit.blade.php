@@ -57,12 +57,6 @@
                         {!! Form::date('birthday_date', $user->birthday_date ?? '', ['class' => 'form-control', 'required' => true]) !!}
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="inputSkills" class="col-sm-2 col-form-label">Departamento</label>
-                    <div class="col-sm-10">
-                        {!! Form::select('department_id', $department_list ?? [], $user->department_id ?? '', ['placeholder' => 'Departamento', 'class' => 'form-control', 'required' => true]) !!}
-                    </div>
-                </div>
             </div>
             <!-- /.card-body -->
           </div>

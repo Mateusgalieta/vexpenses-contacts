@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Department;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -37,16 +36,13 @@ class UsersController extends Controller
     }
 
     /**
-     * Redirect to Add department page
+     * Redirect to Add User page
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function register()
     {
-        $department_list = Department::all();
-        return view('user.register', [
-            'department_list' => $department_list->pluck('name', 'id')->toArray() ?? [],
-        ]);
+        return view('user.register');
     }
 
     /**
@@ -58,7 +54,9 @@ class UsersController extends Controller
     {
         $data = $request->all();
 
-        User::create($data);
+        $user = User::create($data);
+
+        activity()->log('O User ID'. $user->id . ' foi criado.');
 
         session()->flash('alert-success', 'Criado com sucesso!');
         return redirect()->route('user.index');
@@ -72,11 +70,9 @@ class UsersController extends Controller
     public function edit($user_id)
     {
         $user = User::findOrFail($user_id);
-        $department_list = Department::all();
 
         return view('user.edit', [
             'user' => $user ?? null,
-            'department_list' => $department_list->pluck('name', 'id')->toArray() ?? [],
         ]);
     }
 
@@ -98,7 +94,7 @@ class UsersController extends Controller
 
         $user->update($data);
 
-        activity()->log('Atualizado cliente pelo usuário');
+        activity()->log('O User ID'. $user->id . ' foi atualizado.');
 
         session()->flash('alert-success', 'Atualizado com sucesso!');
         return redirect()->route('user.index');
@@ -113,6 +109,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($user_id);
         $user->delete();
+
+        activity()->log('O User ID'. $user->id . ' foi deletado.');
 
         session()->flash('alert-success', 'Deletado com sucesso!');
         return redirect()->back();

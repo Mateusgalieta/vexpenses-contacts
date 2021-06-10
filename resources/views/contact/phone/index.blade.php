@@ -18,7 +18,7 @@
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
 
-                  <input type="text" name="search" class="form-control float-right" placeholder="Pesquisar">
+                  <input type="text" name="search" value="{{ request()->search ? request()->search : '' }}" class="form-control float-right" placeholder="Pesquisar">
 
                   <div class="input-group-append">
                     <button type="submit" id="search" class="btn btn-default">
@@ -56,6 +56,10 @@
                                     <i class="fas fa-trash">
                                     </i>
                                     Excluir
+                                </a>
+                                <a class="btn btn-success btn-sm col-2" target="_blank" href="https://api.whatsapp.com/send?phone={{ $phone->phone }}&text=Ol%C3%A1%2C%20tudo%20bem%3F">
+                                    <i class="fab fa-whatsapp">
+                                    </i>
                                 </a>
                             </td>
                         </tr>

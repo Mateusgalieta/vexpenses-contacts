@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Department;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -22,7 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'department_id',
         'birthday_date',
     ];
 
@@ -56,8 +54,4 @@ class User extends Authenticatable
 
 
     /*  Table Relationships  */
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
 }

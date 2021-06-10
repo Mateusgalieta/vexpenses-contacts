@@ -80,6 +80,9 @@ class AddressesController extends Controller
                 'state' => $data['state'],
                 'contact_id' => $contact_id
             ]);
+
+            activity()->log('Endereço ID'. $address->id . ' foi criado.');
+
             session()->flash('alert-success', 'Criado com sucesso!');
             return redirect()->route('address.index', $contact_id);
         }
@@ -126,6 +129,8 @@ class AddressesController extends Controller
         $address = Address::findOrFail($address_id);
         $address->update($data);
 
+        activity()->log('Endereço ID'. $address->id . ' foi editado.');
+
         session()->flash('alert-success', 'Atualizado com sucesso!');
         return redirect()->route('address.index', $contact_id);
     }
@@ -139,6 +144,8 @@ class AddressesController extends Controller
     {
         $address = Address::findOrFail($address_id);
         $address->delete();
+
+        activity()->log('Endereço ID'. $address->id . ' foi deletado.');
 
         session()->flash('alert-success', 'Deletado com sucesso!');
         return redirect()->back();

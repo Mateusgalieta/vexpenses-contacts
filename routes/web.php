@@ -34,15 +34,6 @@ Route::get('/users/{id}/edit', [App\Http\Controllers\UsersController::class, 'ed
 Route::put('/users/{id}/update', [App\Http\Controllers\UsersController::class, 'update'])->name('user.update');
 Route::get('/users/{id}/delete', [App\Http\Controllers\UsersController::class, 'destroy'])->name('user.destroy');
 
-
-//Departments Routes
-Route::get('/departments', [App\Http\Controllers\DepartmentsController::class, 'index'])->name('department.index');
-Route::get('/departments/register', [App\Http\Controllers\DepartmentsController::class, 'register'])->name('department.register');
-Route::post('/departments/create', [App\Http\Controllers\DepartmentsController::class, 'create'])->name('department.create');
-Route::get('/departments/{id}/edit', [App\Http\Controllers\DepartmentsController::class, 'edit'])->name('department.edit');
-Route::put('/departments/{id}/update', [App\Http\Controllers\DepartmentsController::class, 'update'])->name('department.update');
-Route::get('/departments/{id}/delete', [App\Http\Controllers\DepartmentsController::class, 'destroy'])->name('department.destroy');
-
 //Categories Routes
 Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index'])->name('category.index');
 Route::get('/categories/register', [App\Http\Controllers\CategoriesController::class, 'register'])->name('category.register');
@@ -53,6 +44,7 @@ Route::get('/categories/{id}/delete', [App\Http\Controllers\CategoriesController
 
 //Contacts Routes
 Route::get('/contacts', [App\Http\Controllers\ContactsController::class, 'index'])->name('contact.index');
+Route::get('/contacts/autocomplete', [App\Http\Controllers\ContactsController::class, 'autocomplete'])->name('contact.autocomplete');
 Route::get('/contacts/register', [App\Http\Controllers\ContactsController::class, 'register'])->name('contact.register');
 Route::post('/contacts/create', [App\Http\Controllers\ContactsController::class, 'create'])->name('contact.create');
 Route::get('/contacts/{id}/edit', [App\Http\Controllers\ContactsController::class, 'edit'])->name('contact.edit');

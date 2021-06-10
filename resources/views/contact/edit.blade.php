@@ -35,7 +35,31 @@
                 {!!  Form::open(['route' => ['contact.update', $contact->id], 'method' => 'PUT', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         <label for="inputName">Nome do Contato</label>
-                        {!! Form::text('name', $contact ? $contact->name : '', ['class' => 'form-control', 'placeholder' => 'Nome', 'required' => true]); !!}
+                        {!! Form::text('name', $contact->name, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Nome', 'required' => true]); !!}
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="category">Categoria</label>
+                            </div>
+                            <select name="category_id" class="custom-select" id="category">
+                                <option selected>Categoria</option>
+                                @foreach ($categories_list as $category)
+                                    <option value="{{ $category->id }}" {{ $category->id == $contact->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Foto</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="avatar_url" class="custom-file-input" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01">Escolher arquivo</label>
+                        </div>
                     </div>
             </div>
             <!-- /.card-body -->

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Department;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
@@ -36,7 +35,7 @@ class ProfilesController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->all();
+        //
     }
 
     /**
@@ -59,6 +58,8 @@ class ProfilesController extends Controller
         }
 
         $user->update($data);
+
+        activity()->log('O profile do user ID'. $user->id . ' foi atualizado.');
 
         session()->flash('alert-success', 'Atualizado com sucesso!');
         return redirect()->back();

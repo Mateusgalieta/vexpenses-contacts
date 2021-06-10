@@ -66,6 +66,7 @@ class CategoriesController extends Controller
                 'status' => 'success',
                 'message' => "Criado com sucesso!",
             ];
+            activity()->log('Categoria ID'. $category->id . ' foi criado.');
         }
         else {
             $response = [
@@ -103,6 +104,8 @@ class CategoriesController extends Controller
         $category = Category::findOrFail($category_id);
         $category->update($data);
 
+        activity()->log('Categoria ID'. $category->id . ' foi atualizado.');
+
         session()->flash('alert-success', 'Atualizado com sucesso!');
         return redirect()->route('category.index');
     }
@@ -116,6 +119,8 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($category_id);
         $category->delete();
+
+        activity()->log('Categoria ID'. $category->id . ' foi deletado.');
 
         session()->flash('alert-success', 'Deletado com sucesso!');
         return redirect()->back();
