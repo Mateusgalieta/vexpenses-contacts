@@ -164,6 +164,7 @@ class ContactsController extends Controller
     {
         $contact = Contact::findOrFail($contact_id);
         $contact->phones()->delete();
+        $contact->addresses()->delete();
         $contact->delete();
 
         activity()->log('Contato ID'. $contact->id . ' foi deletado.');
