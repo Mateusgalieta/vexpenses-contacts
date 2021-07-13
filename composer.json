@@ -18,7 +18,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.2",
-        "spatie/enum": "^3.9",
+        "prettus/l5-repository": "^2.7",
         "spatie/laravel-activitylog": "^3.17"
     },
     "require-dev": {

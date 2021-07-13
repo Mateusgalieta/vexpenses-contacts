@@ -48,7 +48,7 @@ class ActivityLogger
         return $this;
     }
 
-    public function performedOn(Model $model)
+    public function performedOn($model)
     {
         $this->getActivity()->subject()->associate($model);
 
@@ -145,13 +145,15 @@ class ActivityLogger
         return $this;
     }
 
-    public function log(string $description)
+    public function log(string $log_name, string $description)
     {
         if ($this->logStatus->disabled()) {
             return;
         }
 
         $activity = $this->activity;
+
+        $activity->log_name = $log_name ?? 'default';
 
         $activity->description = $this->replacePlaceholders(
             $activity->description ?? $description,
